@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    TODO look for a better orderBy Icon-->
+    <item
+        android:title="@string/orderBy"
+        android:icon="@drawable/ic_order_by_icon"
+        app:showAsAction="ifRoom|collapseActionView"
+        >
+        <menu>
+            <item
+                android:id="@+id/startTime"
+                android:title="@string/by_startTime"
+                android:icon="@drawable/ic_sort_by_alpha"
+                app:showAsAction="never"
+                />
+            <item
+                android:id="@+id/about_to_start"
+                android:title="@string/about_to_start"
+                android:icon="@drawable/ic_order_by_icon"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/action_search"
+        android:icon="@drawable/ic_search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+</menu>

@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Daily Tips</string>
+    <!--    Navigation Drawer   -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="football">Football</string>
+    <string name="tennis">Tennis</string>
+    <string name="news">News</string>
+    <string name="settings">Settings</string>
+
+    <string name="action_search">Search</string>
+    <string name="search_match_hint">Search match</string>
+    <string name="source_url">https://chancetips.herokuapp.com/api/games</string>
+    <string name="today">Today</string>
+    <string name="date">24</string>
+    <!--    News Activity   -->
+    <string name="heading">News Heading</string>
+    <string name="news_caption">AFC|Dec 17, 12:05</string>
+    <string name="sample">This chapter has introduced methods that an agent can use to select actions in environments
+        that are deterministic, observable, static, and completely known.</string>
+    <!--    No Event View   -->
+    <string name="no_events">No Events!</string>
+    <string name="no_events_caption">Currently there are no available %1$s matches</string>
+    <!--    Settings Activity   -->
+    <string name="dark_mode">Dark Mode</string>
+    <string name="notifications">Notifications</string>
+    <string name="version">Version</string>
+    <string name="version_number">1.0</string>
+    <!--    Football Card   -->
+    <string name="home_team">Team A</string>
+    <string name="away_team">Team B</string>
+    <string name="start_time">8:00</string>
+    <string name="pick">PICK: %1$s</string>
+    <string name="odds">ODDS: %1$s</string>
+    <string name="result">SCORE: %1$s</string>
+    <string name="match_outcome">match outcome</string>
+    <string name="orderBy">orderBy</string>
+    <string name="by_startTime">By start time</string>
+    <string name="about_to_start">About to start</string>
+
+
+</resources>
