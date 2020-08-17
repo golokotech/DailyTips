@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp"
     android:id="@+id/bottom_sheet"
+    android:layout_gravity="bottom"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     style="@style/Widget.Design.BottomSheet.Modal"
     xmlns:android="http://schemas.android.com/apk/res/android"

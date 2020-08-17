@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "872013777853",
+    "firebase_url": "https://daily-tips-dbb7b.firebaseio.com",
+    "project_id": "daily-tips-dbb7b",
+    "storage_bucket": "daily-tips-dbb7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872013777853:android:aabd4320f76513abe5a0d4",
+        "android_client_info": {
+          "package_name": "com.dennohpeter.dailytips"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872013777853-fu3a3bklu24svq9gpkl849nb2klcdfnm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dennohpeter.dailytips",
+            "certificate_hash": "c38ee8759c1a806eb2145b98b5877024556f400f"
+          }
+        },
+        {
+          "client_id": "872013777853-cjeg6b8ab0b0ts3m7ffodh97kli1cnq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2KCzkj9pyNnwc4-G8BpZPDtCRs45eWCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872013777853-cjeg6b8ab0b0ts3m7ffodh97kli1cnq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
