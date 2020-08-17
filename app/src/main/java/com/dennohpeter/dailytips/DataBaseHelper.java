@@ -33,8 +33,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put("is_live", is_live);
 
         int id = (int) db.insertWithOnConflict(table, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
-        if (id == -1){
-            db.update(table, contentValues, "teams=?",new String[] {teams});
+        if (id == -1) {
+            db.update(table, contentValues, "teams=?", new String[]{teams});
         }
     }
 
@@ -43,7 +43,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String where = "date=? AND is_live=?";
         String[] whereArgs = new String[]{date, is_live};
         // TODO add orderBy to function parameters for dynamic filtering.
-        String orderBy = "start_time "+ "ASC";
+        String orderBy = "start_time " + "ASC";
         return db.query(table, columns, where, whereArgs, null, null, orderBy);
     }
 

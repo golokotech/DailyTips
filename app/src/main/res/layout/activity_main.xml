@@ -8,33 +8,10 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <include
+        layout="@layout/app_bar_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
-
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize" />
-
-        <ProgressBar
-            android:id="@+id/progress_circular"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="match_parent" />
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -58,43 +35,46 @@
                 android:id="@+id/nav_settings"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/listPreferredItemHeightSmall"
-                android:drawableStart="@drawable/ic_settings"
-                android:drawableLeft="@drawable/ic_settings"
                 android:drawablePadding="32dp"
                 android:gravity="center_vertical"
                 android:paddingStart="?attr/listPreferredItemPaddingLeft"
                 android:paddingLeft="?attr/listPreferredItemPaddingLeft"
                 android:paddingEnd="?attr/listPreferredItemPaddingRight"
                 android:paddingRight="?attr/listPreferredItemPaddingRight"
-                android:text="@string/settings" />
+                android:text="@string/settings"
+                app:drawableLeftCompat="@drawable/ic_settings"
+                app:drawableStartCompat="@drawable/ic_settings" />
 
             <RelativeLayout
+                android:id="@+id/nav_dark_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/nav_settings">
 
                 <TextView
-                    android:id="@+id/nav_dark_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="?attr/listPreferredItemHeightSmall"
-                    android:drawableStart="@drawable/ic_theme"
-                    android:drawableLeft="@drawable/ic_theme"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toStartOf="@id/toggle_theme"
+                    android:layout_toLeftOf="@id/toggle_theme"
                     android:drawablePadding="28dp"
                     android:gravity="center_vertical"
                     android:paddingStart="?attr/listPreferredItemPaddingLeft"
                     android:paddingLeft="?attr/listPreferredItemPaddingLeft"
                     android:paddingEnd="?attr/listPreferredItemPaddingRight"
                     android:paddingRight="?attr/listPreferredItemPaddingRight"
-                    android:text="@string/dark_mode" />
+                    android:text="@string/dark_mode"
+                    app:drawableLeftCompat="@drawable/ic_theme"
+                    app:drawableStartCompat="@drawable/ic_theme" />
 
                 <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/toggle_theme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:layout_toEndOf="@id/nav_dark_mode"
-                    android:layout_toRightOf="@id/nav_dark_mode"
                     android:padding="16dp" />
             </RelativeLayout>
 

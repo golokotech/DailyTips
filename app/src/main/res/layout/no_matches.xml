@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/no_matches"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:gravity="center"
-    android:layout_height="match_parent">
+    tools:showIn="@layout/football_container"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:contentDescription="@string/no_events"
         android:src="@drawable/ic_no_events" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_events"
-        android:textSize="30sp"
         android:paddingBottom="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+        android:text="@string/no_events"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textSize="30sp" />
+
     <TextView
         android:id="@+id/no_events_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
         android:text="@string/no_events_caption"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        />
+        android:textSize="15sp" />
 
 </LinearLayout>

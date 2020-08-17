@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dennohpeter.dailytips.R;
 
-class NewsViewHolder extends RecyclerView.ViewHolder{
-     TextView news_heading;
+class NewsViewHolder extends RecyclerView.ViewHolder {
+    TextView news_heading;
 
     NewsViewHolder(View itemView) {
         super(itemView);

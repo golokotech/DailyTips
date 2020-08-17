@@ -1,16 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/football_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".football.match_tab.MatchFragment">
+    android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/match_recyclerView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/football_container"
         android:layout_width="match_parent"
-        tools:listitem="@layout/football_card"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        tools:context=".football.MatchFragment">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/football_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/football_card" />
 
-    <include layout="@layout/no_matches" />
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <include layout="@layout/no_matches" />
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <FrameLayout
+        android:id="@+id/datePickerFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_date"
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="0dp"
+            app:fabSize="normal"
+            app:maxImageSize="32dp" />
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="7dp"
+            android:text="@string/date"
+            android:textColor="@color/primaryTextColor" />
+
+    </FrameLayout>
+
+    <include layout="@layout/calendar_widget" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.dennohpeter.dailytips.football.match_tab;
+package com.dennohpeter.dailytips.football;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,111 +15,131 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.dennohpeter.dailytips.DateUtil;
 import com.dennohpeter.dailytips.R;
-import com.dennohpeter.dailytips.football.FootballModel;
-import com.dennohpeter.dailytips.football.FootballViewHolder;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class MatchFragment extends Fragment implements SearchView.OnQueryTextListener {
-    DatabaseReference databaseReference;
+    private static final String TAG = "MatchFragment";
+    FirebaseFirestore db;
     private RecyclerView recyclerView;
     private LinearLayout nothing_to_show;
     private SwipeRefreshLayout pullToRefresh;
-    private String date;
-    private CardView bottom_sheet;
+    private LinearLayout calendarWidget;
     private CalendarView calendarView;
-    private FloatingActionButton fab;
+    private FrameLayout datePickerFab;
     private TextView date_text;
-    private String day;
-    private Button today_btn;
-    private BottomSheetBehavior sheetBehavior;
+    private Button btnToday;
+    private Query query;
+    private  FirestoreRecyclerAdapter<FootballModel, FootballViewHolder> recyclerAdapter;
+    private  boolean isLive = false;
+    private String currentDate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Football");
+        if (getArguments() != null) {
+            isLive = getArguments().getBoolean("isLive");
+        }
+        query = FirebaseFirestore.getInstance().collection("football");
+        DateUtil dateUtil = new DateUtil();
+        currentDate = dateUtil.getCurrentDate();
+        Log.d(TAG, "onCreate: " + currentDate);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.football_container, container, false);
+
+        init(root);
+        Log.d(TAG, "onCreate: " + isLive);
+        populateRecyclerViewer(currentDate);
+        setSwipeRefreshView();
+        datePickerWidget();
+        return root;
+    }
+    private void init(View root){
         pullToRefresh = root.findViewById(R.id.football_container);
-        bottom_sheet = root.findViewById(R.id.calendarWidget);
+        calendarWidget = root.findViewById(R.id.calendarWidget);
         calendarView = root.findViewById(R.id.calendarView);
-        date_text = root.findViewById(R.id.date_text);
-        fab = root.findViewById(R.id.fab);
-        today_btn = root.findViewById(R.id.btn_today);
+        date_text = root.findViewById(R.id.dateText);
+        datePickerFab = root.findViewById(R.id.datePickerFab);
+        btnToday = root.findViewById(R.id.btn_today);
 
         recyclerView = root.findViewById(R.id.football_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         nothing_to_show = root.findViewById(R.id.no_matches);
 
-//        datePickerWidget();
+        if (isLive){
+            datePickerFab.setVisibility(View.GONE);
+        }else {
+            datePickerFab.setVisibility(View.VISIBLE);
+        }
 
-        setSwipeRefreshView();
-
-        return root;
     }
 
     private void datePickerWidget() {
 
-        long current_date = calendarView.getDate();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(current_date);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        date = format.format(calendar.getTime());
+        String dayOfMonth = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+        date_text.setText(dayOfMonth);
 
-        day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-        date_text.setText(day);
-        sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
-        sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-        sheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int state) {
-                // dragging events
-                if (state == BottomSheetBehavior.STATE_EXPANDED) {
-                    fab.hide();
-                } else {
-                    fab.show();
-                }
-            }
+        BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(calendarWidget);
 
-            @Override
-            public void onSlide(@NonNull View view, float v) {
+        datePickerFab.setOnClickListener(view -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED));
 
-            }
-        });
-
-        fab.setOnClickListener(view -> sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED));
-        calendarView.setOnDateChangeListener((view, year1, month1, day) -> {
-            Log.d("calendarView", "onSelectedDayChange: " + day + "/" + month1 + "/" + year1);
-            sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        calendarView.setOnDateChangeListener((view, year, month, day) -> {
+            Log.d("calendarView", "onSelectedDayChange: " + day + "/" + month + "/" + year);
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
             date_text.setText(String.valueOf(day));
-            fab.show();
+            datePickerFab.setVisibility(View.VISIBLE);
 
         });
-        today_btn.setOnClickListener(v -> {
-            calendarView.setDate(current_date);
-            date_text.setText(day);
-            sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-            fab.show();
+        btnToday.setOnClickListener(v -> {
+            calendarView.setDate(calendar.getTimeInMillis());
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            date_text.setText(dayOfMonth);
+            datePickerFab.setVisibility(View.VISIBLE);
+
+
+        });
+
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                    case BottomSheetBehavior.STATE_SETTLING:
+                    case BottomSheetBehavior.STATE_HALF_EXPANDED:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED: {
+                        datePickerFab.setVisibility(View.GONE);
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_COLLAPSED: {
+                        datePickerFab.setVisibility(View.VISIBLE);
+                    }
+                    break;
+                }
+                }
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
         });
     }
 
@@ -126,6 +147,7 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
         TextView no_events_description = nothing_to_show.findViewById(R.id.no_events_description);
         String description = this.getString(R.string.no_events_caption, "football");
         no_events_description.setText(description);
+        Log.d(TAG, "showNothingToShowWidget: "+ description);
         nothing_to_show.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
     }
@@ -158,19 +180,18 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
         return true;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        FirebaseRecyclerOptions<FootballModel> recyclerOptions = new FirebaseRecyclerOptions.Builder<FootballModel>()
-                .setQuery(databaseReference, FootballModel.class)
+    public void populateRecyclerViewer(String matchDate){
+        query = query.whereEqualTo("matchDate", matchDate).whereEqualTo("isLive",isLive).orderBy("startTime");
+        FirestoreRecyclerOptions<FootballModel> recyclerOptions = new FirestoreRecyclerOptions
+                .Builder<FootballModel>()
+                .setQuery(query, FootballModel.class)
                 .build();
 
-        FirebaseRecyclerAdapter<FootballModel, FootballViewHolder> recyclerAdapter = new FirebaseRecyclerAdapter<FootballModel, FootballViewHolder>(
+        recyclerAdapter = new FirestoreRecyclerAdapter<FootballModel, FootballViewHolder>(
                 recyclerOptions
         ) {
             @Override
-            protected void onBindViewHolder(FootballViewHolder holder, int position, FootballModel model) {
+            protected void onBindViewHolder(@NonNull FootballViewHolder holder, int position, FootballModel model) {
                 holder.setHomeTeam(model.getHomeTeam());
                 holder.setAwayTeam(model.getAwayTeam());
                 holder.setOdds(model.getOdds());
@@ -186,8 +207,33 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
                         .inflate(R.layout.football_card, parent, false);
                 return new FootballViewHolder(view);
             }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                Log.d(TAG, "populateRecyclerViewer:gd" + getItemCount() + isLive);
+                if (getItemCount()==0) {
+                    showNothingToShowWidget();
+                }else {
+                    hideNothingToShowWidget();
+                }
+            }
         };
-        recyclerAdapter.startListening();
         recyclerView.setAdapter(recyclerAdapter);
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        recyclerAdapter.startListening();
+
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        recyclerAdapter.stopListening();
+
     }
 }

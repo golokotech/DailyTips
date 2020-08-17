@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-
 import com.dennohpeter.dailytips.football.FootballModel;
 
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 public class FetchGamesFromDB {
     private String match_type, date, is_live;
     private DataBaseHelper dataBaseHelper;
+
     public FetchGamesFromDB(Context context, String match_type, String date, String is_live) {
         this.match_type = match_type;
         this.date = date;
@@ -40,7 +40,7 @@ public class FetchGamesFromDB {
             } else {
                 icon = R.drawable.waiting;
             }
-            games.add(new FootballModel(teams, start_time, match_date, pick, result, odds, icon));
+//            games.add(new FootballModel(teams, start_time, match_date, pick, result, odds, icon));
 
         }
         cursor.close();

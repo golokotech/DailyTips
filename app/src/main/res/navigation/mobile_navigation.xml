@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/mobile_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/nav_football">
 
+    <fragment
+        android:id="@+id/nav_football"
+        android:name="com.dennohpeter.dailytips.football.FootballFragment"
+        android:label="@string/football"
+        tools:layout="@layout/fragment_football" />
+
+    <fragment
+        android:id="@+id/nav_tennis"
+        android:name="com.dennohpeter.dailytips.news.NewsFragment"
+        android:label="@string/tennis"
+        tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/nav_news"
+        android:name="com.dennohpeter.dailytips.news.NewsFragment"
+        android:label="@string/news"
+        tools:layout="@layout/fragment_news" />
 </navigation>

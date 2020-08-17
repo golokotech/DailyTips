@@ -1,47 +1,94 @@
 package com.dennohpeter.dailytips.football;
 
 public class FootballModel {
-    private String teams,  start_time,  match_date,  pick,  result, odds;
-    private int icon;
+    Boolean outcome, isLive;
+    private String homeTeam, awayTeam, startTime, matchDate, pick, result, odds;
 
-     public FootballModel(String teams, String start_time, String match_date, String pick, String result, String odds, int icon) {
-        this.teams = teams;
-        this.start_time = start_time;
-        this.match_date = match_date;
+
+    public FootballModel() {
+    }
+
+    public FootballModel(String homeTeam, String awayTeam, String startTime, String matchDate, String pick, String result, String odds, Boolean outcome, Boolean isLive) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.startTime = startTime;
+        this.matchDate = matchDate;
         this.pick = pick;
         this.result = result;
         this.odds = odds;
-        this.icon = icon;
-    }
-    public FootballModel(String teams){
-         this.teams = teams;
+        this.outcome = outcome;
+        this.isLive = isLive;
     }
 
-    public String getTeams() {
-        return teams;
+    public String getHomeTeam() {
+        return homeTeam;
+    }
+
+    public void setHomeTeam(String homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    public String getAwayTeam() {
+        return awayTeam;
+    }
+
+    public void setAwayTeam(String awayTeam) {
+        this.awayTeam = awayTeam;
     }
 
     public String getStartTime() {
-        return start_time;
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
     public String getMatchDate() {
-        return match_date;
+        return matchDate;
+    }
+
+    public void setMatchDate(String matchDate) {
+        this.matchDate = matchDate;
     }
 
     public String getPick() {
         return pick;
     }
 
+    public void setPick(String pick) {
+        this.pick = pick;
+    }
+
     public String getResult() {
         return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
     public String getOdds() {
         return odds;
     }
 
-    public int getIcon() {
-        return icon;
+    public void setOdds(String odds) {
+        this.odds = odds;
+    }
+
+    public Boolean getOutcome() {
+        return outcome;
+    }
+
+    public void setOutcome(Boolean outcome) {
+        this.outcome = outcome;
+    }
+
+    public Boolean getIsLive() {
+        return isLive;
+    }
+
+    public void setIsLive(Boolean live) {
+        isLive = live;
     }
 }

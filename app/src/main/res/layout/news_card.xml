@@ -10,33 +10,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
+
         <ImageView
             android:id="@+id/news_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_football"
-            android:contentDescription="@string/heading"/>
+            android:contentDescription="@string/heading"
+            android:src="@drawable/ic_football" />
 
         <TextView
             android:id="@+id/news_heading"
-            android:layout_below="@+id/news_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:text="@string/heading" />
+            android:layout_below="@+id/news_img"
+            android:text="@string/heading"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
         <TextView
             android:id="@+id/first_seen"
-            android:layout_below="@+id/news_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/news_heading"
             android:text="@string/news_caption"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
         <TextView
-            android:layout_below="@+id/first_seen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/first_seen"
             android:text="@string/sample"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

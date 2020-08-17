@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Daily Tips</string>
     <!--    Navigation Drawer   -->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="football">Football</string>
     <string name="tennis">Tennis</string>
     <string name="news">News</string>
@@ -10,7 +8,6 @@
 
     <string name="action_search">Search</string>
     <string name="search_match_hint">Search match</string>
-    <string name="source_url">https://chancetips.herokuapp.com/api/games</string>
     <string name="today">Today</string>
     <string name="date">24</string>
     <!--    News Activity   -->
@@ -35,8 +32,7 @@
     <string name="result">SCORE: %1$s</string>
     <string name="match_outcome">match outcome</string>
     <string name="orderBy">orderBy</string>
-    <string name="by_startTime">By start time</string>
-    <string name="about_to_start">About to start</string>
-
-
+    <!--    ad unit id-->
+    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="adMobAppId">ca-app-pub-3940256099942544~3347511713</string>
 </resources>

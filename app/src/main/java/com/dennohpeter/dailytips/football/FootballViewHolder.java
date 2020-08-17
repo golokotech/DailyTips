@@ -8,22 +8,55 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dennohpeter.dailytips.R;
 
-public class FootballViewHolder extends RecyclerView.ViewHolder{
-    public TextView home_team;
-    public TextView away_team;
-    public TextView start_time;
-    public TextView pick;
-    public TextView result;
-    public TextView odds;
-    public ImageView won_or_lost;
+public class FootballViewHolder extends RecyclerView.ViewHolder {
+    private TextView home_team;
+    private TextView away_team;
+    private TextView start_time;
+    private TextView pickField;
+    private TextView resultField;
+    private TextView oddsField;
+    private ImageView won_or_lost;
+
     public FootballViewHolder(View itemView) {
         super(itemView);
         home_team = itemView.findViewById(R.id.home_team);
         away_team = itemView.findViewById(R.id.away_team);
         start_time = itemView.findViewById(R.id.start_time);
-        pick = itemView.findViewById(R.id.pick);
-        result = itemView.findViewById(R.id.result);
+        pickField = itemView.findViewById(R.id.pick);
+        resultField = itemView.findViewById(R.id.result);
         won_or_lost = itemView.findViewById(R.id.match_outcome);
-        odds = itemView.findViewById(R.id.odds);
+        oddsField = itemView.findViewById(R.id.odds);
+    }
+
+    public void setHomeTeam(String homeTeam) {
+        home_team.setText(homeTeam);
+    }
+
+    public void setAwayTeam(String awayTeam) {
+        away_team.setText(awayTeam);
+    }
+
+    public void setStartTime(String startTime) {
+        start_time.setText(startTime);
+    }
+
+    public void setPickField(String pick) {
+        pickField.setText(pick);
+    }
+
+    public void setResult(String result) {
+        resultField.setText(result);
+    }
+
+    public void setOdds(String odds) {
+        oddsField.setText(odds);
+    }
+
+    public void setWonOrLost(Boolean outcome) {
+        if (outcome) {
+            won_or_lost.setImageResource(R.drawable.won);
+        } else {
+            won_or_lost.setImageResource(R.drawable.lost);
+        }
     }
 }
