@@ -10,16 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".football.MatchFragment">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/football_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/football_card" />
 
-        <include layout="@layout/no_matches" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/football_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/football_card" />
+
+            <include layout="@layout/no_matches" />
         </FrameLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

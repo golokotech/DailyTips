@@ -4,6 +4,7 @@
         android:bottom="-1dp"
         android:left="-1dp"
         android:right="-1dp"
+        android:tint="?attr/colorControlNormal"
         android:top="1dp">
         <shape android:shape="rectangle">
             <stroke

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:showIn="@layout/football_container"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:showIn="@layout/football_container">
 
     <ImageView
         android:layout_width="match_parent"

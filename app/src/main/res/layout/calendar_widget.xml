@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/calendarWidget"
+    style="@style/Widget.Design.BottomSheet.Modal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    style="@style/Widget.Design.BottomSheet.Modal"
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
->
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
@@ -21,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginBottom="16dp"
-        android:text="@string/today"
-        android:padding="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginBottom="16dp"
+        android:padding="16dp"
+        android:text="@string/today" />
 </LinearLayout>
