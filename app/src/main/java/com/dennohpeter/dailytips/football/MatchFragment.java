@@ -42,8 +42,8 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
     private TextView date_text;
     private Button btnToday;
     private Query query;
-    private  FirestoreRecyclerAdapter<FootballModel, FootballViewHolder> recyclerAdapter;
-    private  boolean isLive = false;
+    private FirestoreRecyclerAdapter<FootballModel, FootballViewHolder> recyclerAdapter;
+    private boolean isLive = false;
     private String currentDate;
 
     @Override
@@ -52,10 +52,11 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
         if (getArguments() != null) {
             isLive = getArguments().getBoolean("isLive");
         }
-        query = FirebaseFirestore.getInstance().collection("football");
         DateUtil dateUtil = new DateUtil();
         currentDate = dateUtil.getCurrentDate();
         Log.d(TAG, "onCreate: " + currentDate);
+        query = FirebaseFirestore.getInstance().collection("football").document(currentDate).collection(currentDate);
+
     }
 
     @Override
@@ -70,7 +71,8 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
         datePickerWidget();
         return root;
     }
-    private void init(View root){
+
+    private void init(View root) {
         pullToRefresh = root.findViewById(R.id.football_container);
         calendarWidget = root.findViewById(R.id.calendarWidget);
         calendarView = root.findViewById(R.id.calendarView);
@@ -83,9 +85,9 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
         recyclerView.setHasFixedSize(true);
         nothing_to_show = root.findViewById(R.id.no_matches);
 
-        if (isLive){
+        if (isLive) {
             datePickerFab.setVisibility(View.GONE);
-        }else {
+        } else {
             datePickerFab.setVisibility(View.VISIBLE);
         }
 
@@ -135,7 +137,8 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
                     }
                     break;
                 }
-                }
+            }
+
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
 
@@ -147,12 +150,13 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
         TextView no_events_description = nothing_to_show.findViewById(R.id.no_events_description);
         String description = this.getString(R.string.no_events_caption, "football");
         no_events_description.setText(description);
-        Log.d(TAG, "showNothingToShowWidget: "+ description);
+        Log.d(TAG, "showNothingToShowWidget: " + description);
         nothing_to_show.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
     }
 
     private void hideNothingToShowWidget() {
+        Log.d(TAG, "hideNothingToShowWidget: " + isLive);
         nothing_to_show.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
     }
@@ -180,8 +184,8 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
         return true;
     }
 
-    public void populateRecyclerViewer(String matchDate){
-        query = query.whereEqualTo("matchDate", matchDate).whereEqualTo("isLive",isLive).orderBy("startTime");
+    public void populateRecyclerViewer(String matchDate) {
+        query = query.whereEqualTo("date", matchDate).whereEqualTo("isLive", isLive).orderBy("startTime");
         FirestoreRecyclerOptions<FootballModel> recyclerOptions = new FirestoreRecyclerOptions
                 .Builder<FootballModel>()
                 .setQuery(query, FootballModel.class)
@@ -191,13 +195,14 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
                 recyclerOptions
         ) {
             @Override
-            protected void onBindViewHolder(@NonNull FootballViewHolder holder, int position, FootballModel model) {
+            protected void onBindViewHolder(@NonNull FootballViewHolder holder, int position, @NonNull FootballModel model) {
                 holder.setHomeTeam(model.getHomeTeam());
                 holder.setAwayTeam(model.getAwayTeam());
                 holder.setOdds(model.getOdds());
                 holder.setStartTime(model.getStartTime());
                 holder.setResult(model.getResult());
-                holder.setWonOrLost(model.getOutcome());
+                holder.setPickField(model.getPick());
+                holder.setMatchStatus(model.getStatus());
             }
 
             @NonNull
@@ -212,9 +217,9 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
             public void onDataChanged() {
                 super.onDataChanged();
                 Log.d(TAG, "populateRecyclerViewer:gd" + getItemCount() + isLive);
-                if (getItemCount()==0) {
+                if (getItemCount() == 0) {
                     showNothingToShowWidget();
-                }else {
+                } else {
                     hideNothingToShowWidget();
                 }
             }
@@ -230,6 +235,7 @@ public class MatchFragment extends Fragment implements SearchView.OnQueryTextLis
         recyclerAdapter.startListening();
 
     }
+
     @Override
     public void onStop() {
         super.onStop();

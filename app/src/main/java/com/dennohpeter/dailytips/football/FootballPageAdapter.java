@@ -26,8 +26,7 @@ public class FootballPageAdapter extends FragmentPagerAdapter {
         Bundle bundle = new Bundle();
         if (position == 1) {
             bundle.putBoolean("isLive", true);
-        }
-        else {
+        } else {
             bundle.putBoolean("isLive", false);
         }
         fragment.setArguments(bundle);

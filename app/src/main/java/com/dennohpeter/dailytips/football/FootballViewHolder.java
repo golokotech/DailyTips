@@ -15,7 +15,7 @@ public class FootballViewHolder extends RecyclerView.ViewHolder {
     private TextView pickField;
     private TextView resultField;
     private TextView oddsField;
-    private ImageView won_or_lost;
+    private ImageView matchOutcome;
 
     public FootballViewHolder(View itemView) {
         super(itemView);
@@ -24,7 +24,7 @@ public class FootballViewHolder extends RecyclerView.ViewHolder {
         start_time = itemView.findViewById(R.id.start_time);
         pickField = itemView.findViewById(R.id.pick);
         resultField = itemView.findViewById(R.id.result);
-        won_or_lost = itemView.findViewById(R.id.match_outcome);
+        matchOutcome = itemView.findViewById(R.id.match_outcome);
         oddsField = itemView.findViewById(R.id.odds);
     }
 
@@ -48,15 +48,17 @@ public class FootballViewHolder extends RecyclerView.ViewHolder {
         resultField.setText(result);
     }
 
-    public void setOdds(String odds) {
-        oddsField.setText(odds);
+    public void setOdds(Float odds) {
+        oddsField.setText(String.valueOf(odds));
     }
 
-    public void setWonOrLost(Boolean outcome) {
-        if (outcome) {
-            won_or_lost.setImageResource(R.drawable.won);
+    public void setMatchStatus(String status) {
+        if (status.equals("won")) {
+            matchOutcome.setImageResource(R.drawable.won);
+        } else if (status.equals("lost")) {
+            matchOutcome.setImageResource(R.drawable.lost);
         } else {
-            won_or_lost.setImageResource(R.drawable.lost);
+            matchOutcome.setImageResource(R.drawable.waiting);
         }
     }
 }

@@ -1,22 +1,23 @@
 package com.dennohpeter.dailytips.football;
 
 public class FootballModel {
-    Boolean outcome, isLive;
-    private String homeTeam, awayTeam, startTime, matchDate, pick, result, odds;
+    private Boolean isLive;
+    private Float odds;
+    private String homeTeam, awayTeam, startTime, date, pick, result, status;
 
 
     public FootballModel() {
     }
 
-    public FootballModel(String homeTeam, String awayTeam, String startTime, String matchDate, String pick, String result, String odds, Boolean outcome, Boolean isLive) {
+    public FootballModel(String homeTeam, String awayTeam, String startTime, String date, String pick, String result, Float odds, String status, Boolean isLive) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.startTime = startTime;
-        this.matchDate = matchDate;
+        this.date = date;
         this.pick = pick;
         this.result = result;
         this.odds = odds;
-        this.outcome = outcome;
+        this.status = status;
         this.isLive = isLive;
     }
 
@@ -44,12 +45,12 @@ public class FootballModel {
         this.startTime = startTime;
     }
 
-    public String getMatchDate() {
-        return matchDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setMatchDate(String matchDate) {
-        this.matchDate = matchDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getPick() {
@@ -68,20 +69,20 @@ public class FootballModel {
         this.result = result;
     }
 
-    public String getOdds() {
+    public Float getOdds() {
         return odds;
     }
 
-    public void setOdds(String odds) {
+    public void setOdds(Float odds) {
         this.odds = odds;
     }
 
-    public Boolean getOutcome() {
-        return outcome;
+    public String getStatus() {
+        return status;
     }
 
-    public void setOutcome(Boolean outcome) {
-        this.outcome = outcome;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Boolean getIsLive() {
