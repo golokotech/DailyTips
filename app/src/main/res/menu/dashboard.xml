@@ -2,6 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:icon="@drawable/ic_order_by_icon"
+        android:title=""
+        app:showAsAction="ifRoom"
+        >
+        <menu>
+            <item android:id="@+id/ascending"
+                android:icon="@drawable/ic_order_by_a_z"
+                android:title="@string/start_time_a_z"/>
+            <item android:id="@+id/descending"
+                android:icon="@drawable/ic_order_by_icon"
+                android:title="@string/start_time_z_a"/>
+        </menu>
+    </item>
+    <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search"
         android:orderInCategory="100"

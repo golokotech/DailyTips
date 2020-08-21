@@ -3,7 +3,6 @@ package com.dennohpeter.dailytips;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,10 +18,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -73,32 +68,6 @@ public class MainActivity extends AppCompatActivity {
         theme_switch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Toast.makeText(MainActivity.this, "" + isChecked, Toast.LENGTH_SHORT).show();
             changeTheme();
-        });
-
-        loadAd();
-
-    }
-
-    private void loadAd() {
-        MobileAds.initialize(this, initializationStatus -> {
-        });
-        InterstitialAd mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {
-            String TAG = "MainActivity";
-            Log.d(TAG, "The interstitial wasn't loaded yet.");
-        }
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-            }
-
         });
 
     }

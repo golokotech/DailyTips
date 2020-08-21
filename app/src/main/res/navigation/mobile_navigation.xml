@@ -11,11 +11,6 @@
         tools:layout="@layout/fragment_football" />
 
     <fragment
-        android:id="@+id/nav_tennis"
-        android:name="com.dennohpeter.dailytips.news.NewsFragment"
-        android:label="@string/tennis"
-        tools:layout="@layout/fragment_news" />
-    <fragment
         android:id="@+id/nav_news"
         android:name="com.dennohpeter.dailytips.news.NewsFragment"
         android:label="@string/news"

@@ -1,5 +1,6 @@
 package com.dennohpeter.dailytips.football;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,9 +17,11 @@ public class FootballViewHolder extends RecyclerView.ViewHolder {
     private TextView resultField;
     private TextView oddsField;
     private ImageView matchOutcome;
+    private Context context;
 
     public FootballViewHolder(View itemView) {
         super(itemView);
+        this.context = itemView.getContext();
         home_team = itemView.findViewById(R.id.home_team);
         away_team = itemView.findViewById(R.id.away_team);
         start_time = itemView.findViewById(R.id.start_time);
@@ -41,15 +44,22 @@ public class FootballViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setPickField(String pick) {
-        pickField.setText(pick);
+        pickField.setText(
+                context.getString(R.string.pick, pick));
     }
 
     public void setResult(String result) {
-        resultField.setText(result);
+
+        resultField.setText(
+                context.getString(R.string.result,
+                        result));
     }
 
     public void setOdds(Float odds) {
-        oddsField.setText(String.valueOf(odds));
+
+        oddsField.setText(
+                context.getString(R.string.odds,
+                        String.valueOf(odds)));
     }
 
     public void setMatchStatus(String status) {
