@@ -35,4 +35,5 @@
     <string name="adMobAppId">ca-app-pub-3940256099942544~3347511713</string>
     <string name="start_time_a_z">Start time A-Z</string>
     <string name="start_time_z_a">Start time Z-A</string>
+    <string name="no_news_text">Football news will appear here.</string>
 </resources>

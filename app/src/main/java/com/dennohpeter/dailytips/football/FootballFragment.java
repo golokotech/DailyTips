@@ -1,5 +1,6 @@
 package com.dennohpeter.dailytips.football;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +53,7 @@ public class FootballFragment extends Fragment implements SearchView.OnQueryText
     private SharedPreferences preferences;
     private ProgressBar progressBar;
     private InterstitialAd mInterstitialAd;
+    private Context context;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +62,8 @@ public class FootballFragment extends Fragment implements SearchView.OnQueryText
 
         DateUtil dateUtil = new DateUtil();
         currentDate = dateUtil.getCurrentDate();
-        preferences = getContext().getSharedPreferences("OrderBySettings", MODE_PRIVATE);
+        this.context = getContext();
+        preferences = context.getSharedPreferences("OrderBySettings", MODE_PRIVATE);
         loadAd();
 
     }
@@ -69,6 +72,7 @@ public class FootballFragment extends Fragment implements SearchView.OnQueryText
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_football, container, false);
+        context = getContext();
 
         init(view);
         populateRecyclerViewer(getQuery(currentDate));
@@ -86,7 +90,7 @@ public class FootballFragment extends Fragment implements SearchView.OnQueryText
         recyclerView = root.findViewById(R.id.football_recyclerView);
         recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.setHasFixedSize(true);
-        nothing_to_show = root.findViewById(R.id.no_matches);
+        nothing_to_show = root.findViewById(R.id.nothing_to_show);
         progressBar = root.findViewById(R.id.progress_circular);
 
     }
@@ -263,16 +267,18 @@ public class FootballFragment extends Fragment implements SearchView.OnQueryText
 
 
     public LinearLayoutManager getLayoutManager() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         String orderBy = preferences.getString("orderBy", getString(R.string.start_time_a_z));
-        Log.d(TAG, "getLayoutManager: "+ orderBy);
-        if (orderBy.equals(getString(R.string.start_time_a_z))) {
-            layoutManager.setReverseLayout(false);
-            layoutManager.setStackFromEnd(false);
+        Log.d(TAG, "getLayoutManager: " + orderBy);
+        if (orderBy != null) {
+            if (orderBy.equals(getString(R.string.start_time_a_z))) {
+                layoutManager.setReverseLayout(false);
+                layoutManager.setStackFromEnd(false);
 
-        } else if (orderBy.equals(getString(R.string.start_time_z_a))) {
-            layoutManager.setReverseLayout(true);
-            layoutManager.setStackFromEnd(true);
+            } else if (orderBy.equals(getString(R.string.start_time_z_a))) {
+                layoutManager.setReverseLayout(true);
+                layoutManager.setStackFromEnd(true);
+            }
         }
         return layoutManager;
     }
@@ -305,9 +311,9 @@ public class FootballFragment extends Fragment implements SearchView.OnQueryText
     }
 
     private void loadAd() {
-        MobileAds.initialize(getContext(), initializationStatus -> {
+        MobileAds.initialize(context, initializationStatus -> {
         });
-        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAd = new InterstitialAd(context);
         mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
