@@ -44,5 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:19.3.0'
     // FirebaseUI for Cloud Firestore
     implementation 'com.firebaseui:firebase-ui-firestore:6.3.0'
+    //  Algolia
+    implementation 'com.algolia:algoliasearch-android:3.27.0'
 
 }

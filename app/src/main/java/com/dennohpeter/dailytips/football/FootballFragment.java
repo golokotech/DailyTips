@@ -21,6 +21,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.algolia.search.saas.AlgoliaException;
+import com.algolia.search.saas.CompletionHandler;
+import com.algolia.search.saas.Index;
+import com.dennohpeter.dailytips.Algolia;
 import com.dennohpeter.dailytips.DateUtil;
 import com.dennohpeter.dailytips.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -32,6 +36,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -52,6 +58,7 @@ public class FootballFragment extends Fragment implements SearchView.OnQueryText
     private SharedPreferences preferences;
     private ProgressBar progressBar;
     private InterstitialAd mInterstitialAd;
+    private Index index;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +69,7 @@ public class FootballFragment extends Fragment implements SearchView.OnQueryText
         currentDate = dateUtil.getCurrentDate();
         preferences = getContext().getSharedPreferences("OrderBySettings", MODE_PRIVATE);
         loadAd();
+        index = new Algolia().getIndex("football");
 
     }
 
@@ -175,7 +183,25 @@ public class FootballFragment extends Fragment implements SearchView.OnQueryText
         return true;
     }
 
-    private void searchQuery(String queryText) {
+    private void searchQuery(String queryText) { ;
+
+        CompletionHandler completionHandler = new CompletionHandler() {
+            @Override
+            public void requestCompleted(JSONObject content, AlgoliaException error) {
+
+                Log.d(TAG, "requestCompleted: " + content.toString());
+            }
+        };
+
+        // Search for a match
+        index.searchAsync(new Query("jimmie"), completionHandler);
+
+
+
+
+
+
+
 //        TODO refactor this method
         Query query;
         if (queryText.isEmpty()) {
@@ -256,6 +282,7 @@ public class FootballFragment extends Fragment implements SearchView.OnQueryText
                 }
             }
         };
+
         recyclerView.setAdapter(recyclerAdapter);
 
 
