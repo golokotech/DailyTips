@@ -1,24 +1,52 @@
 package com.dennohpeter.dailytips;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 
 public class SettingsActivity extends AppCompatActivity {
-    SwitchCompat notifications;
+
+    private SwitchCompat themeSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        notifications = findViewById(R.id.notify_switch);
 
-    }
+        SharedPreferences preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
 
-    public void changeTheme(View view) {
-        Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
+        boolean isNightModeOn = preferences.getBoolean("isNightModeOn", false);
+        themeSwitch = findViewById(R.id.changeTheme);
+        TextView dark_mode_text = findViewById(R.id.dark_mode_text);
+
+        if (isNightModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            themeSwitch.setChecked(true);
+            dark_mode_text.setText(getString(R.string.disable_dark_mode));
+
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            themeSwitch.setChecked(false);
+            dark_mode_text.setText(getString(R.string.enable_dark_mode));
+
+        }
+
+        themeSwitch.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = preferences.edit();
+            if (themeSwitch.isChecked()) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                editor.putBoolean("isNightModeOn", true);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                editor.putBoolean("isNightModeOn", false);
+            }
+            editor.apply();
+            recreate();
+        });
+
     }
 }

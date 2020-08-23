@@ -5,6 +5,7 @@
     style="@style/Widget.Design.BottomSheet.Modal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/rounded_edge"
     android:orientation="vertical"
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
@@ -23,7 +24,7 @@
         android:layout_gravity="end"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
         android:padding="16dp"
-        android:text="@string/today" />
+        android:text="@string/today"
+        android:textColor="?attr/textColorAlertDialogListItem" />
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.dennohpeter.dailytips.football;
+package com.dennohpeter.dailytips;
 
 public class FootballModel {
     private Boolean isLive;

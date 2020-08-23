@@ -2,4 +2,7 @@
 <resources>
     <color name="primaryColor">#1f1f1f</color>
     <color name="primaryDarkColor">#000000</color>
+    <color name="colorLost">#FF064F</color>
+    <color name="colorWon">#279D79</color>
+    <color name="colorWaiting">#f1f1f1</color>
 </resources>

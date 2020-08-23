@@ -7,54 +7,27 @@
     android:padding="5dp">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_border"
-        android:onClick="changeTheme"
         android:padding="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/dark_mode"
+            android:id="@+id/dark_mode_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="changeTheme"
-            android:text="@string/dark_mode" />
+            android:text="@string/enable_dark_mode" />
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/changeTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_toEndOf="@id/dark_mode"
-            android:layout_toRightOf="@id/dark_mode"
-            android:onClick="changeTheme" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_border"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-        tools:layout_editor_absoluteX="10dp">
-
-        <TextView
-            android:id="@+id/notifications"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/notifications" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/notify_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_toEndOf="@id/notifications"
-            android:layout_toRightOf="@id/notifications" />
+            android:layout_toEndOf="@id/dark_mode_text"
+            android:layout_toRightOf="@id/dark_mode_text" />
     </RelativeLayout>
 
     <RelativeLayout

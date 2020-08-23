@@ -1,4 +1,4 @@
-package com.dennohpeter.dailytips.football;
+package com.dennohpeter.dailytips;
 
 import android.content.Context;
 import android.view.View;
@@ -6,8 +6,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.dennohpeter.dailytips.R;
 
 public class FootballViewHolder extends RecyclerView.ViewHolder {
     private TextView home_team;
