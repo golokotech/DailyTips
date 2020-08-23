@@ -114,12 +114,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {
-            Log.d(TAG, "The interstitial wasn't loaded yet.");
-        }
-
     }
 
     private void datePickerWidget() {
@@ -252,6 +246,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 updateStats(getSnapshots());
                 progressBar.setVisibility(View.GONE);
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d(TAG, "The interstitial wasn't loaded yet.");
+                }
             }
         };
         recyclerView.setAdapter(recyclerAdapter);
