@@ -12,7 +12,7 @@
                 android:title="@string/start_time_a_z" />
             <item
                 android:id="@+id/descending"
-                android:icon="@drawable/ic_order_by_icon"
+                android:icon="@drawable/ic_order_by_z_a"
                 android:title="@string/start_time_z_a" />
         </menu>
     </item>

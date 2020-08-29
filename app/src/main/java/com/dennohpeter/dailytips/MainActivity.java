@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private InterstitialAd mInterstitialAd;
     private SharedPreferences preferences;
-    private TextView wonMatches, lostMatches;
+    private TextView wonMatches, lostMatches, totalMatches;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +59,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        wonMatches = findViewById(R.id.wonMatches);
-        lostMatches = findViewById(R.id.lostMatches);
-        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
 
+        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        init();
         applyTheme();
 
         DateUtil dateUtil = new DateUtil();
         currentDate = dateUtil.getCurrentDate();
-        init();
         populateRecyclerViewer(getQuery(currentDate));
         datePickerWidget();
         loadAd();
@@ -85,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        wonMatches = findViewById(R.id.wonMatches);
+        lostMatches = findViewById(R.id.lostMatches);
+        totalMatches = findViewById(R.id.totalMatches);
+
         calendarWidget = findViewById(R.id.calendarWidget);
         calendarView = findViewById(R.id.calendarView);
         date_text = findViewById(R.id.dateText);
@@ -133,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
         calendarView.setMaxDate(calendar.getTimeInMillis());
 
         calendarView.setOnDateChangeListener((view, year, month, day) -> {
-            Log.d("calendarView", "onSelectedDayChange: " + day + "/" + month + "/" + year);
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
             date_text.setText(String.valueOf(day));
             datePickerFab.setVisibility(View.VISIBLE);
@@ -191,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
     public LinearLayoutManager getLayoutManager() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         String orderBy = preferences.getString("orderBy", getString(R.string.start_time_a_z));
-        Log.d(TAG, "getLayoutManager: " + orderBy);
         if (orderBy != null) {
             if (orderBy.equals(getString(R.string.start_time_a_z))) {
                 layoutManager.setReverseLayout(false);
@@ -271,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
         }
         wonMatches.setText(String.format(Locale.getDefault(), "W: %d", won));
         lostMatches.setText(String.format(Locale.getDefault(), "L: %d", lost));
+        totalMatches.setText(String.format(Locale.getDefault(), "T: %d", matches.size()));
     }
 
     private Query getQuery(String date) {
@@ -300,12 +301,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         SharedPreferences.Editor editor = preferences.edit();
-        Log.d(TAG, "onOptionsItemSelected: " + item.getItemId());
         switch (item.getItemId()) {
             case R.id.ascending:
                 editor.putString("orderBy", getString(R.string.start_time_a_z));
                 editor.apply();
-                Log.d(TAG, "onOptionsItemSelected: ");
                 recyclerView.setLayoutManager(getLayoutManager());
                 break;
             case R.id.descending:

@@ -8,7 +8,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="140dp"
+        android:background="@drawable/toolbar_background"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
 
@@ -16,12 +17,17 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:alpha="0.8"
             android:background="@color/primaryColor"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextColor="@color/primaryTextColor" />
 
         <LinearLayout
+            android:id="@+id/dashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:alpha="0.8"
+            android:background="@color/primaryColor"
             android:orientation="horizontal">
 
             <TextView
@@ -30,7 +36,8 @@
                 android:drawablePadding="4dp"
                 android:padding="16dp"
                 android:text="@string/football"
-                android:textColor="?attr/colorOnPrimarySurface"
+                android:textColor="@color/primaryTextColor"
+                app:drawableTint="@color/primaryTextColor"
                 app:drawableTopCompat="@drawable/ic_football" />
 
             <LinearLayout
@@ -41,13 +48,13 @@
 
                 <TextView
                     android:id="@+id/wonMatches"
-
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/won"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -59,7 +66,19 @@
                     android:gravity="center"
                     android:text="@string/lost"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/colorLost"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/totalMatches"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/total"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="24sp"
                     android:textStyle="bold" />
             </LinearLayout>

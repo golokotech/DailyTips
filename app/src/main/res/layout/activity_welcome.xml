@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryColor"
     tools:context=".WelcomeActivity">
 
     <TextView
@@ -14,11 +15,11 @@
         android:drawablePadding="100dp"
         android:gravity="center"
         android:text="@string/app_name"
-        android:drawableTint="?attr/colorControlNormal"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        android:textColor="@color/primaryDarkColor"
+        android:textColor="@color/primaryTextColor"
         android:textSize="32sp"
         android:textStyle="bold"
+        app:drawableTint="@color/primaryTextColor"
         app:drawableTopCompat="@drawable/ic_football" />
 
     <TextView
@@ -30,6 +31,7 @@
         android:padding="32dp"
         android:text="@string/we_analyze_you_win"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/primaryTextColor"
         android:textSize="24sp" />
 
     <TextView
@@ -39,6 +41,7 @@
         android:gravity="center"
         android:text="@string/author"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/primaryTextColor"
         android:textSize="16sp" />
 
 

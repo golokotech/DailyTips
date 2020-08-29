@@ -1,6 +1,8 @@
 package com.dennohpeter.dailytips;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -47,6 +49,27 @@ public class SettingsActivity extends AppCompatActivity {
             editor.apply();
             recreate();
         });
+        setAppVersion();
 
     }
+
+    private void setAppVersion() {
+        TextView app_version_tv = findViewById(R.id.app_version);
+        app_version_tv.setText(getAppVersion(this));
+
+    }
+
+    static String getAppVersion(Context context) {
+        String result = "";
+        try {
+            result = context.getPackageManager().getPackageInfo(context.getPackageName(), 0)
+                    .versionName;
+            result = result.replaceAll("[a-zA-Z]|-", "");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
 }

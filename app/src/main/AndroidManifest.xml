@@ -30,7 +30,8 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/settings" />
+            android:label="@string/settings"
+            android:parentActivityName=".MainActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

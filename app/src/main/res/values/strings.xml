@@ -22,8 +22,8 @@
     <string name="result">SCORE: %1$s</string>
     <string name="match_outcome">match outcome</string>
     <!--    ad unit id-->
-    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="adMobAppId">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-6672249802346735/1347649845</string>
+    <string name="adMobAppId">ca-app-pub-6672249802346735~9609283247</string>
     <string name="start_time_a_z">Start time A-Z</string>
     <string name="start_time_z_a">Start time Z-A</string>
 
@@ -33,4 +33,6 @@
     <string name="author">github/dennohpeter</string>
     <string name="won">W</string>
     <string name="lost">L</string>
+    <string name="total">T</string>
+    <string name="toolbar_image">toolbar image</string>
 </resources>
